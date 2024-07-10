@@ -9,11 +9,11 @@ st.title("Pratiquer le francais")
 
 @st.cache_data
 def load_data():
-    df = pd.read_json('francais_dataset_after_mistake.json', orient ='split')
+    df = pd.read_json('francais_vingt.json', orient ='split')
     return df
 
 def select_item(df):
-    return np.random.choice(df['anglais'], p=df['Coefficient']/100)
+    return np.random.choice(df['anglais'])
 
 data = load_data()
 sentence = select_item(data)
