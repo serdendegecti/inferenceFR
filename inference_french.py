@@ -1,21 +1,35 @@
+import streamlit as st
+
 import pandas as pd
 import random as rn
 import numpy as np
 
+st.title("Pratiquer le francais")
 
 
-print("The probability rate should be between 0 and 1. If you want to make it more coming select 0.55, if you want to eliminate it select 0.02")
-
-df = pd.read_json('francais_dataset_after_mistake.json', orient ='split')
+@st.cache_data
+def load_data():
+    df = pd.read_json('francais_dataset_after_mistake.json', orient ='split')
+    return df
 
 def select_item(df):
     return np.random.choice(df['anglais'], p=df['Coefficient']/100)
 
+data = load_data()
+sentence = select_item(data)
+mask = data['anglais'].str.contains(sentence, case=False, na=False)
+item_number = data.loc[mask].index[0]
+french = data['francais'][item_number]
 
-while True:
-    sentence = select_item(df)
-    mask = df['anglais'].str.contains(sentence, case=False, na=False)
-    item_number = df.loc[mask].index[0]
-    print(sentence)
-    answer_french = input()
-    print(df['francais'][item_number])
+st.write(sentence)
+
+@st.experimental_fragment
+def fragment():
+    user_input = st.text_input("Traduit le phrase en francais")
+    st.write(user_input)
+
+    if st.button("Montre"):
+        st.write(french)
+
+fragment()
+st.button("Essaye encore!")
