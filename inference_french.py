@@ -9,7 +9,7 @@ st.title("Pratiquer le francais")
 
 @st.cache_data
 def load_data():
-    df = pd.read_json('francais_training_dataset.json', orient ='split')
+    df = pd.read_json('dataset_12July24_1551.json', orient ='split')
     return df
 
 def select_item(df):
