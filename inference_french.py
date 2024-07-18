@@ -11,7 +11,7 @@ st.title("Pratiquer le francais")
 def load_data():
     df = pd.read_json('dataset_12July24_1551.json', orient ='split')
     df_trained = df[df['status'] == 'trained']
-    return df
+    return df_trained
 
 def select_item(df):
     return np.random.choice(df['anglais'])
