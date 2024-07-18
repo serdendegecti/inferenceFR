@@ -11,12 +11,16 @@ st.title("Pratiquer le francais")
 def load_data():
     df = pd.read_json('dataset_12July24_1551.json', orient ='split')
     df_trained = df[df['status'] == 'Untrained']
-    return df_trained
+    return df_trained, df_trained.shape[0]
+
 
 def select_item(df):
     return np.random.choice(df['anglais'])
 
-data = load_data()
+data, data_size = load_data()
+
+st.subheader(f"Number of remaining Untrained sentences: {data_size}")
+
 sentence = select_item(data)
 mask = data['anglais'].str.contains(sentence, case=False, na=False)
 item_number = data.loc[mask].index[0]
