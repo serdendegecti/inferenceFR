@@ -9,7 +9,7 @@ st.title("Pratiquer le francais")
 
 @st.cache_data
 def load_data():
-    df = pd.read_json('dataset_12July24_1551.json', orient ='split')
+    df = pd.read_json('dataset_19July24_1506.json', orient ='split')
     df_trained = df[df['status'] == 'Untrained']
     return df_trained, df_trained.shape[0]
 
